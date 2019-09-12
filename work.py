@@ -13,6 +13,8 @@ class WriteFile:
   def __next__(self):
     data_json = json.loads(self.file_r.read())
     for i in range(0,n):
+      if self.n < 0:
+        raise StopIteration
       country = data_json[i]["name"]["common"]
       url = wikipedia.page(country).url
       self.file_w.write(country)
@@ -20,7 +22,7 @@ class WriteFile:
       self.file_w.write(url)
       self.file_w.write('\n')
       self.n +=1
-      return url
+      
 
 
 if __name__ =="__main__":

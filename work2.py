@@ -8,7 +8,7 @@ def generate_file_md5(filename, blocksize=2**20):
             buf = f.read(blocksize)
             if not buf:
                 break
-            m.update( buf )
+            yield m.update( buf )
     return m.hexdigest()
 
 if __name__ =="__main__":

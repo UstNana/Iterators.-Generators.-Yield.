@@ -2,14 +2,17 @@ import hashlib
 import os
 
 def generate_file_md5(filename, blocksize=2**20):
-    m = hashlib.md5()
-    with open( os.path.join(filename) , "rb" ) as f:
+
+    with open( os.path.join(filename) , "r" ) as f:
         while True:
-            buf = f.read(blocksize)
+            buf = f.readline(blocksize)
+            s = buf.encode()
+            m = hashlib.md5()
             if not buf:
                 break
-            yield m.update( buf )
-    return m.hexdigest()
+            m.update(s)
+            yield m
+
 
 if __name__ =="__main__":
   for item in generate_file_md5("as.json"):
